@@ -1,3 +1,4 @@
+from functools import lru_cache
 import datetime
 import pendulum
 from singer.logger import get_logger
@@ -17,7 +18,7 @@ VALID_DATETIME_FORMATS = [
     UNIX_MILLISECONDS_INTEGER_DATETIME_PARSING,
 ]
 
-
+@lru_cache(maxsize=4096)
 def string_to_datetime(value):
     try:
         return strftime(pendulum.parse(value))
